@@ -1,0 +1,10 @@
+<launch>
+    <node pkg="target_ekf" name="target_ekf_node" type="target_ekf_node" output="screen">
+      <rosparam command="load" file="$(find target_ekf)/config/D435_sim.yaml" />
+      <!-- <param name="ekf_rate" value="20"/> -->
+      <param name="pitch_thr" value="37"/> 
+      <remap from="~yolo" to="/yolo_detect"/>
+
+      <remap from="~target_odom" to="/target_ekf_odom"/>
+    </node>
+</launch>
