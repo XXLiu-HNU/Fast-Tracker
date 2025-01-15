@@ -68,7 +68,7 @@ class Nodelet : public nodelet::Nodelet {
   bool use_global_map_ = false;
 
   // NOTE for mask target
-  bool use_mask_ = false;
+  bool use_mask_ = true;
   ros::Subscriber target_odom_sub_;
   std::atomic_flag target_lock_ = ATOMIC_FLAG_INIT;
   Eigen::Vector3d target_odom_;
@@ -154,12 +154,12 @@ class Nodelet : public nodelet::Nodelet {
         ;
       Eigen::Vector3d ld = target_odom_;
       Eigen::Vector3d ru = target_odom_;
-      ld.x() -= 0.5;
-      ld.y() -= 0.5;
-      ld.z() -= 1.0;
-      ru.x() += 0.5;
-      ru.y() += 0.5;
-      ru.z() += 1.0;
+      ld.x() -= 1.5;
+      ld.y() -= 1.5;
+      ld.z() -= 2.0;
+      ru.x() += 1.5;
+      ru.y() += 1.5;
+      ru.z() += 2.0;
       gridmap_.setFree(ld, ru);
       target_lock_.clear();
     }

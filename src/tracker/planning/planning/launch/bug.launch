@@ -1,10 +1,12 @@
 <launch>
-    <node pkg="target_ekf" name="target_ekf_node" type="target_ekf_node" output="screen">
-      <rosparam command="load" file="$(find target_ekf)/config/D435_sim.yaml" />
-      <!-- <param name="ekf_rate" value="20"/> -->
-      <param name="pitch_thr" value="37"/> 
-      <remap from="~yolo" to="/yolo_detect"/>
-
-      <remap from="~target_odom" to="/target_ekf_odom"/>
-    </node>
+  <arg name="camera_color_topic" default="/iris_0/realsense/depth_camera/color/image_raw" />
+  <arg name="camera_depth_topic" default="/iris_0/realsense/depth_camera/depth/image_raw" />
+  <arg name="odom_topic" default="/iris_0/mavros/vision_odom/odom" />
+  <arg name="modified_depth" default="/iris_0/realsense/depth_camera/depth/image_raw" />
+  <node pkg="target_ekf" type="detect_ros.py" name="detect_node" output="screen">
+    <remap from="/uav_color" to="$(arg camera_color_topic)" />
+    <remap from="/uav_depth" to="$(arg camera_depth_topic)" />
+    <remap from="/uav_odom" to="$(arg odom_topic)" />
+    <remap from="/modified_depth_image" to="$(arg modified_depth)" />
+  </node>
 </launch>

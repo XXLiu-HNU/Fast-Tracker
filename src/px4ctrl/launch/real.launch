@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Define the drone_id and namespace arguments -->
+
+    <!-- Main px4ctrl node -->
+    <node pkg="px4ctrl" type="px4ctrl_node" name="px4ctrl" output="screen">
+        <remap from="traj_start_trigger" to="/triger" />
+        <remap from="~odom" to="/vision_odom" />
+        <remap from="~cmd" to="/position_cmd" />
+        <rosparam command="load" file="$(find px4ctrl)/config/ctrl_param_fpv_real.yaml" />
+    </node>
+
+    <node pkg="px4ctrl" type="takeof_real.sh" name="$takeoff" output="screen">
+    </node>
+</launch>

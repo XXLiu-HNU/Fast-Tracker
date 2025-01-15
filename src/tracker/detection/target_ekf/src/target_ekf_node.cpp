@@ -112,7 +112,7 @@ void yolo_cb(const nav_msgs::OdometryConstPtr &yolo_detect) {
   Eigen::Vector3d p;
   p(0) = yolo_detect->pose.pose.position.x;
   p(1) = yolo_detect->pose.pose.position.y;
-  p(2) = yolo_detect->pose.pose.position.z;
+  p(2) = yolo_detect->pose.pose.position.z;;
   // std::cout << "p cam frame: " << p.transpose() << std::endl;
   
   // update target odom
@@ -133,8 +133,8 @@ void yolo_cb(const nav_msgs::OdometryConstPtr &yolo_detect) {
 int main(int argc, char** argv) {
   ros::init(argc, argv, "target_ekf");
   ros::NodeHandle nh("~");
-  // last_update_stamp_ = ros::Time::now() - ros::Duration(10.0);
-  last_update_stamp_ = ros::Time::now();
+  ros::Time::init();
+  last_update_stamp_ = ros::Time::now() - ros::Duration(10.0);
 
   std::vector<double> tmp;
 

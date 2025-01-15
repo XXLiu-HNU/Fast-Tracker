@@ -1,0 +1,38 @@
+<launch>
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find mapping)/config/rviz_debug.rviz">
+    </node>
+    <node pkg="odom_visualization" name="yolo_odom_visualization" type="odom_visualization"
+        output="screen">
+        <remap from="~odom" to="/yolo_detect" />
+        <remap from="~robot" to="/yolo_vis" />
+        <param name="robot" value="1.0" />
+        <param name="color/r" value="1.0" />
+        <param name="color/g" value="0.0" />
+        <param name="color/b" value="0.0" />
+        <param name="robot_scale" value="1.0" />
+
+    </node>
+
+    <node pkg="odom_visualization" name="target_odom_visualization" type="odom_visualization"
+        output="screen">
+        <remap from="~odom" to="/target_ekf_odom" />
+        <remap from="~robot" to="/target_vis" />
+        <param name="robot" value="1.0" />
+        <param name="color/r" value="0.0" />
+        <param name="color/g" value="1.0" />
+        <param name="color/b" value="0.0" />
+        <param name="robot_scale" value="1.0" />
+    </node>
+
+    <node pkg="odom_visualization" name="uav_odom_visualization" type="odom_visualization"
+        output="screen">
+        <remap from="~odom" to="/iris_0/mavros/vision_odom/odom" />
+        <remap from="~robot" to="/uav_vis" />
+        <param name="robot" value="1.0" />
+        <param name="color/r" value="0.0" />
+        <param name="color/g" value="0.0" />
+        <param name="color/b" value="1.0" />
+        <param name="robot_scale" value="1.0" />
+    </node>
+
+</launch>

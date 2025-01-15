@@ -119,9 +119,14 @@ def image_callback(msg):
                 detected_position.pose.pose.position.x = global_coords[0]  # 设置 X 坐标
                 detected_position.pose.pose.position.y = global_coords[1]  # 设置 Y 坐标
                 detected_position.pose.pose.position.z = 0  # 设置 Z 坐标
-                detected_position.twist.twist.linear.x = 0.1
-                detected_position.twist.twist.linear.y = 0.1
-                detected_position.twist.twist.linear.z = 0.1
+                detected_position.pose.pose.orientation.w = 1  # 
+                detected_position.pose.pose.orientation.x = 0  # 
+                detected_position.pose.pose.orientation.y = 0  # 
+                detected_position.pose.pose.orientation.z = 0  # 
+
+                detected_position.twist.twist.linear.x = 0
+                detected_position.twist.twist.linear.y = 0
+                detected_position.twist.twist.linear.z = 0
                 # 给消息添加唯一的 ID 标识，或者用目标的类别作为标识
                 detected_position.header.stamp = rospy.Time.now()
                 detected_position.header.frame_id = f"target_{target_id}"  # 使用target_id作为标识
@@ -154,9 +159,9 @@ def image_callback(msg):
 def main():
     rospy.init_node('yolo_ros_detector', anonymous=True)
     # 订阅深度图像
-    rospy.Subscriber('/uav_color', Image, depth_image_callback)
+    rospy.Subscriber('/uav_depth', Image, depth_image_callback)
     # 订阅RGB图像
-    rospy.Subscriber('/uav_depth', Image, image_callback)
+    rospy.Subscriber('/uav_color', Image, image_callback)
     # 订阅相机位姿信息
     rospy.Subscriber('/uav_odom', Odometry, odom_callback)
     global position_pub  # 声明使用全局变量

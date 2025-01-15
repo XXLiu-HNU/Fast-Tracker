@@ -2,6 +2,7 @@
   <!-- 定义参数，用于接收上一级 launch 文件传入的值 -->
   <arg name="odom_topic" default="/iris_0/mavros/vision_odom/odom"/>
   <arg name="depth_topic" default="/iris_0/modified_depth_image"/>
+  <arg name="target_topic" default="/target_ekf_odom"/>
 
   <node pkg="nodelet" type="nodelet" name="manager" args="manager" output="screen">
     <param name="num_worker_threads" value="16"/>
@@ -17,6 +18,7 @@
     <!-- remap topics，使用从上一级传入的参数 -->
     <remap from="~odom" to="$(arg odom_topic)"/>
     <remap from="~depth" to="$(arg depth_topic)"/>
+    <remap from="~target" to="$(arg target_topic)"/>
     <remap from="~gridmap" to="gridmap"/>
     <remap from="~gridmap_inflate" to="gridmap_inflate"/>
     <param name="down_sample_factor" value="2"/>
@@ -36,6 +38,6 @@
     <param name="local_x" value="20"/>
     <param name="local_y" value="20"/>
     <param name="local_z" value="5"/>
-    <param name="inflate_size" value="1"/>
+    <param name="inflate_size" value="3"/>
   </node>
 </launch>

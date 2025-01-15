@@ -8,3 +8,4 @@ sleep 3
 
 # Publish to the appropriate topic
 rostopic pub /iris_${DRONE_ID}_px4ctrl/takeoff_land quadrotor_msgs/TakeoffLand "takeoff_land_cmd: 1"
+rostopic pub /iris_0_px4ctrl/takeoff_land quadrotor_msgs/TakeoffLand "takeoff_land_cmd: 0"
