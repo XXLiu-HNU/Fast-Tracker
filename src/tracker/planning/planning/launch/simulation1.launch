@@ -11,7 +11,7 @@
     <!-- 传递参数到 mapping.launch -->
     <include file="$(find mapping)/launch/mapping.launch">
       <arg name="odom_topic" value="$(arg odom_topic)" />
-      <arg name="depth_topic" value="$(arg modified_depth)" />
+      <arg name="depth_topic" value="$(arg camera_depth_topic)" />
     </include>
 
     <node name="mapping_vis" pkg="mapping" type="mapping_vis_node">
@@ -25,7 +25,7 @@
       <param name="robot_scale" value="1.0" />
     </node>
 
-    <node pkg="target_ekf" type="detect_ros.py" name="detect_node" output="screen">
+    <node pkg="target_ekf" type="yolo_detector_node.py" name="detect_node" output="screen">
       <remap from="/uav_color" to="$(arg camera_color_topic)" />
       <remap from="/uav_depth" to="$(arg camera_depth_topic)" />
       <remap from="/uav_odom" to="$(arg odom_topic)" />
@@ -44,6 +44,7 @@
       <arg name="rhosVisibility_" value="10000.0" />
       <arg name="rhoTracking_" value="1000.0" />
       <arg name="target_name_" value="$(arg target_odom)" />
+      <arg name="odom_topic_" value="$(arg odom_topic)" />
     </include>
   </group>
 </launch>

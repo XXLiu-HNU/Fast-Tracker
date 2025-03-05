@@ -3,14 +3,14 @@
   <arg name="rhosVisibility_"/>
   <arg name="rhoTracking_"/>
   <arg name="target_name_"/>
-  <arg name="odom_topic" default="/iris_0/mavros/vision_odom/odom"/>
+  <arg name="odom_topic_" default="/iris_0/mavros/vision_odom/odom"/>
 
   <!-- <node pkg="nodelet" type="nodelet" name="plan_manage" args="manager" output="screen">
     <param name="num_worker_threads" value="16"/>
   </node> -->
 
   <node pkg="nodelet" type="nodelet" name="planning" args="load planning/Nodelet manager" output="screen">
-    <remap from="~odom" to="$(arg odom_topic)"/>
+    <remap from="~odom" to="$(arg odom_topic_)"/>
     <remap from="~gridmap_inflate" to="gridmap_inflate"/>
     <remap from="~heartbeat" to="heartbeat"/>
     <remap from="~trajectory" to="trajectory"/>

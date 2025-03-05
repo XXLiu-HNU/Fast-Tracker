@@ -507,7 +507,7 @@ Visualization Manager:
               Autocompute Intensity Bounds: true
               Autocompute Value Bounds:
                 Max Value: 2.325000047683716
-                Min Value: 0.07500000298023224
+                Min Value: -0.375
                 Value: true
               Axis: Z
               Channel Name: intensity
@@ -873,7 +873,7 @@ Visualization Manager:
               Marker Topic: /drone0/planning/visible_region
               Name: visible_region
               Namespaces:
-                "": true
+                {}
               Queue Size: 100
               Value: true
             - Class: rviz/Marker
@@ -1129,7 +1129,7 @@ Visualization Manager:
       Value: true
     - Class: rviz/Image
       Enabled: true
-      Image Topic: /yolo_detected_image
+      Image Topic: /drone0/yolo_detector/detected_image
       Max Value: 1
       Median window: 5
       Min Value: 0
@@ -1167,7 +1167,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 54.695281982421875
+      Distance: 17.309873580932617
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -1175,17 +1175,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 7.132237911224365
-        Y: 3.430558919906616
-        Z: 1.5308151245117188
+        X: -4.025971412658691
+        Y: 2.7704970836639404
+        Z: 1.53081476688385
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.40479743480682373
+      Pitch: 1.409796953201294
       Target Frame: world
-      Yaw: 1.9020973443984985
+      Yaw: 3.1520986557006836
     Saved: ~
 Window Geometry:
   Displays:

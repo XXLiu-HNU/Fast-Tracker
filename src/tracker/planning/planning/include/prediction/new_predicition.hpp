@@ -42,6 +42,9 @@ class Predict {
   int stack_top = 0;
 
   inline bool isValid(const Eigen::Vector3d& p, const Eigen::Vector3d& v) const {
+    if (!map.isOccupied(p)){
+      ROS_INFO("When predict, the position is occupied")
+    }
     return (v.norm() < vmax) && (!map.isOccupied(p));
   }
 

@@ -53,7 +53,4 @@ add_dependencies(target_ekf_sim_node
   ${catkin_EXPORTED_TARGETS}
 )
 
-catkin_install_python(PROGRAMS
-  scripts/detect_ros.py  # 替换为你的 Python 脚本的实际路径
-  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}  # 安装到 ROS 的可执行路径
-)
+

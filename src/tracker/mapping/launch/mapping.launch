@@ -18,7 +18,7 @@
     <!-- remap topics，使用从上一级传入的参数 -->
     <remap from="~odom" to="$(arg odom_topic)"/>
     <remap from="~depth" to="$(arg depth_topic)"/>
-    <remap from="~target" to="$(arg target_topic)"/>
+    <remap from="~target" to="/yolo_detect"/>
     <remap from="~gridmap" to="gridmap"/>
     <remap from="~gridmap_inflate" to="gridmap_inflate"/>
     <param name="down_sample_factor" value="2"/>

@@ -26,9 +26,9 @@
       <param name="robot_scale" value="1.0" />
     </node>
 
-    <node pkg="target_ekf" type="detect_ros.py" name="detect_node" output="screen">
+    <node pkg="target_ekf" type="yolo_detector_node.py" name="detect_node" output="screen">
       <remap from="/uav_color" to="$(arg camera_color_topic)" />
-      <remap from="/uav_depth" to="$(arg camera_depth_topic)" />
+      <remap from="/uav_depth" to="$(arg modified_depth)" />
       <remap from="/uav_odom" to="$(arg odom_topic)" />
       <!-- <remap from="/modified_depth_image" to="$(arg modified_depth)" /> -->
     </node>

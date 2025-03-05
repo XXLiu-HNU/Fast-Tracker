@@ -1,0 +1,10 @@
+<launch>
+    <!-- 启动 d2p_node -->
+    <node name="d2p_node" pkg="d2p" type="d2p_node" output="screen">
+        <!-- 你可以在这里添加任何必要的参数 -->
+        <!-- 例如，如果 d2p_node 需要特定的参数，可以在此添加 -->
+        <!-- <param name="param_name" value="param_value" /> -->
+    </node>
+
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find d2p)/rviz/detector.rviz"/>
+</launch>

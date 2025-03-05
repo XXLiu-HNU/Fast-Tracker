@@ -149,7 +149,7 @@ class Nodelet : public nodelet::Nodelet {
   void plan_timer_callback(const ros::TimerEvent& event) {
     heartbeat_pub_.publish(std_msgs::Empty());
     if (!odom_received_ || !map_received_) {
-      ROS_INFO("NO Odom or No Map");
+        ROS_INFO("NO Odom or No Map");
       return;
     }
     // obtain state of odom
@@ -167,12 +167,12 @@ class Nodelet : public nodelet::Nodelet {
                               odom_msg.pose.pose.orientation.x,
                               odom_msg.pose.pose.orientation.y,
                               odom_msg.pose.pose.orientation.z);
-    // if (!triger_received_) {
-    //   ROS_INFO("No Triger");
-    //   return;
-    // }
+    if (!triger_received_) {
+      ROS_INFO("No Triger"); 
+      return;
+    }
     if (!target_received_) {
-      ROS_INFO("No Target");
+        ROS_INFO("No Target");
       return;
     }
     // NOTE obtain state of target

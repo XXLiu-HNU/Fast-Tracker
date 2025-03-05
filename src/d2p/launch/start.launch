@@ -1,0 +1,5 @@
+<launch>
+    <!-- 定义节点 -->
+    <node name="detect_node" pkg="d2p" type="yolo_detector_node.py" output="screen">
+    </node>
+</launch>
