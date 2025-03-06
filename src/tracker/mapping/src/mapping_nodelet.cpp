@@ -156,10 +156,10 @@ class Nodelet : public nodelet::Nodelet {
       Eigen::Vector3d ru = target_odom_;
       ld.x() -= 1.5;
       ld.y() -= 1.5;
-      ld.z() -= 2.0;
+      ld.z() -= 1.5;
       ru.x() += 1.5;
       ru.y() += 1.5;
-      ru.z() += 2.0;
+      ru.z() += 1.5;
       gridmap_.setFree(ld, ru);
       target_lock_.clear();
     }

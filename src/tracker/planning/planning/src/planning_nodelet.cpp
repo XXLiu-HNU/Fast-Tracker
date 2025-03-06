@@ -183,9 +183,11 @@ class Nodelet : public nodelet::Nodelet {
     Eigen::Vector3d target_p(replanStateMsg_.target.pose.pose.position.x,
                              replanStateMsg_.target.pose.pose.position.y,
                              replanStateMsg_.target.pose.pose.position.z);
-    Eigen::Vector3d target_v(replanStateMsg_.target.twist.twist.linear.x,
-                             replanStateMsg_.target.twist.twist.linear.y,
-                             replanStateMsg_.target.twist.twist.linear.z);
+    // Eigen::Vector3d target_v(replanStateMsg_.target.twist.twist.linear.x,
+    //                          replanStateMsg_.target.twist.twist.linear.y,
+    //                          replanStateMsg_.target.twist.twist.linear.z);
+
+    Eigen::Vector3d target_v(0.0,0.0,0.0);
     Eigen::Quaterniond target_q;
     target_q.w() = replanStateMsg_.target.pose.pose.orientation.w;
     target_q.x() = replanStateMsg_.target.pose.pose.orientation.x;
@@ -211,7 +213,6 @@ class Nodelet : public nodelet::Nodelet {
       target_p = target_p + target_q * land_p_;
       wait_hover_ = false;
     } else {
-      target_p.z() += 1.0;
       // NOTE determin whether to replan
       Eigen::Vector3d dp = target_p - odom_p;
       // std::cout << "dist : " << dp.norm() << std::endl;

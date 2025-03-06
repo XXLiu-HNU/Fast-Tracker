@@ -23,7 +23,9 @@ double depthMinValue_ = 0.2;
 double depthMaxValue_ = 5.0;
 bool odom_sub = false;
 
-std::vector<double> colorIntrinsics = {604.404296875, 604.404296875, 325.03704833984375, 245.77059936523438};
+// std::vector<double> colorIntrinsics = {604.404296875, 604.404296875, 325.03704833984375, 245.77059936523438};
+std::vector<double> colorIntrinsics = { 554.254691191187, 554.254691191187, 320.5, 240.5};  // for xtdeone
+
 double fxC_, fyC_, cxC_, cyC_;
 
 Eigen::Vector3d position_;         // depth camera position
@@ -162,7 +164,7 @@ void publish3dBox(const std::vector<box3D>& boxes, const ros::Publisher& publish
         // visualization using bounding boxes 
         visualization_msgs::Marker line;
         visualization_msgs::MarkerArray lines;
-        line.header.frame_id = "map";
+        line.header.frame_id = "world";
         line.type = visualization_msgs::Marker::LINE_LIST;
         line.action = visualization_msgs::Marker::ADD;
         line.ns = "box3D";  
@@ -441,7 +443,7 @@ void detection_callback(const vision_msgs::Detection2DArrayConstPtr &detections)
         geometry_msgs::Point target_position;
         target_position.x = bbox3D.x;
         target_position.y = bbox3D.y;
-        target_position.z = bbox3D.z;
+        target_position.z = 1.0;  // person dont move in z-aixs
 
         bbox_pub.publish(target_position);
     }
@@ -457,14 +459,14 @@ int main(int argc, char **argv)
     fyC_ = colorIntrinsics[1];
     cxC_ = colorIntrinsics[2];
     cyC_ = colorIntrinsics[3];
-    body2Cam_ << 0.0, 0.0, 1.0, 0.065,
-        -1.0, 0.0, 0.0, 0.01,
-        0.0, -1.0, 0.0, 0.12,
+    body2Cam_ << 0.0, 0.0, 1.0, 0.0,
+        -1.0, 0.0, 0.0, 0.0,
+        0.0, -1.0, 0.0, 0.0,
         0.0, 0.0, 0.0, 1.0;
 
-    body2CamColor_ << 0.0, 0.0, 1.0, 0.065,
-        -1.0, 0.0, 0.0, 0.025,
-        0.0, -1.0, 0.0, 0.12,
+    body2CamColor_ << 0.0, 0.0, 1.0, 0.0,
+        -1.0, 0.0, 0.0, 0.0,
+        0.0, -1.0, 0.0, 0.0,
         0.0, 0.0, 0.0, 1.0;
 
     ros::Subscriber det_sub = nh.subscribe("/yolo_detector/detected_bounding_boxes", 100, detection_callback);

@@ -5,13 +5,8 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /Global Options1
-        - /drone01
         - /drone01/planning1/PolyhedronArray1
-        - /drone11
-        - /drone11/planning1/traj1
-        - /drone11/odom_vis1/drone1
         - /Odometry1/Shape1
-        - /Image2
       Splitter Ratio: 0.46234309673309326
     Tree Height: 480
   - Class: rviz/Selection
@@ -34,18 +29,18 @@ Visualization Manager:
   Displays:
     - Alpha: 1
       Class: rviz/Axes
-      Enabled: false
-      Length: 30
+      Enabled: true
+      Length: 2
       Name: Axes
-      Radius: 0.5
+      Radius: 0.20000000298023224
       Reference Frame: <Fixed Frame>
       Show Trail: false
-      Value: false
+      Value: true
     - Alpha: 0.5
       Cell Size: 1
       Class: rviz/Grid
       Color: 160; 160; 164
-      Enabled: false
+      Enabled: true
       Line Style:
         Line Width: 0.029999999329447746
         Value: Lines
@@ -58,7 +53,7 @@ Visualization Manager:
       Plane: XY
       Plane Cell Count: 100
       Reference Frame: world
-      Value: false
+      Value: true
     - Alpha: 0.009999999776482582
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
@@ -506,8 +501,8 @@ Visualization Manager:
             - Alpha: 1
               Autocompute Intensity Bounds: true
               Autocompute Value Bounds:
-                Max Value: 2.325000047683716
-                Min Value: -0.375
+                Max Value: 0.375
+                Min Value: -0.22500000894069672
                 Value: true
               Axis: Z
               Channel Name: intensity
@@ -960,126 +955,6 @@ Visualization Manager:
           Value: true
       Enabled: true
       Name: drone0
-    - Class: rviz/Group
-      Displays:
-        - Class: rviz/Group
-          Displays:
-            - Alpha: 1
-              Buffer Length: 1
-              Class: rviz/Path
-              Color: 245; 121; 0
-              Enabled: true
-              Head Diameter: 0.30000001192092896
-              Head Length: 0.20000000298023224
-              Length: 0.30000001192092896
-              Line Style: Billboards
-              Line Width: 0.07000000029802322
-              Name: traj
-              Offset:
-                X: 0
-                Y: 0
-                Z: 0
-              Pose Color: 255; 85; 255
-              Pose Style: None
-              Queue Size: 10
-              Radius: 0.029999999329447746
-              Shaft Diameter: 0.10000000149011612
-              Shaft Length: 0.10000000149011612
-              Topic: /drone1/planning/traj
-              Unreliable: false
-              Value: true
-          Enabled: true
-          Name: planning
-        - Class: rviz/Group
-          Displays:
-            - Alpha: 1
-              Buffer Length: 1
-              Class: rviz/Path
-              Color: 0; 0; 255
-              Enabled: false
-              Head Diameter: 0.30000001192092896
-              Head Length: 0.20000000298023224
-              Length: 0.30000001192092896
-              Line Style: Billboards
-              Line Width: 0.03999999910593033
-              Name: Path
-              Offset:
-                X: 0
-                Y: 0
-                Z: 0
-              Pose Color: 255; 85; 255
-              Pose Style: None
-              Queue Size: 10
-              Radius: 0.029999999329447746
-              Shaft Diameter: 0.10000000149011612
-              Shaft Length: 0.10000000149011612
-              Topic: /drone0/odom_visualization/path
-              Unreliable: false
-              Value: false
-            - Class: rviz/Marker
-              Enabled: true
-              Marker Topic: /drone1/odom_visualization/robot
-              Name: drone
-              Namespaces:
-                {}
-              Queue Size: 100
-              Value: true
-          Enabled: true
-          Name: odom_vis
-        - Class: rviz/MarkerArray
-          Enabled: true
-          Marker Topic: /drone1/odom_visualization/fov_visual
-          Name: fov
-          Namespaces:
-            {}
-          Queue Size: 100
-          Value: true
-      Enabled: true
-      Name: drone1
-    - Class: rviz/Group
-      Displays:
-        - Class: rviz/Marker
-          Enabled: true
-          Marker Topic: /drone0/planning/target_vel
-          Name: Marker
-          Namespaces:
-            {}
-          Queue Size: 100
-          Value: true
-        - Class: rviz/Marker
-          Enabled: true
-          Marker Topic: /drone0/planning/drone_vel
-          Name: Marker
-          Namespaces:
-            {}
-          Queue Size: 100
-          Value: true
-        - Alpha: 1
-          Buffer Length: 1
-          Class: rviz/Path
-          Color: 25; 255; 0
-          Enabled: true
-          Head Diameter: 0.30000001192092896
-          Head Length: 0.20000000298023224
-          Length: 0.30000001192092896
-          Line Style: Lines
-          Line Width: 0.029999999329447746
-          Name: Path
-          Offset:
-            X: 0
-            Y: 0
-            Z: 0
-          Pose Color: 255; 85; 255
-          Pose Style: None
-          Queue Size: 10
-          Radius: 0.029999999329447746
-          Shaft Diameter: 0.10000000149011612
-          Shaft Length: 0.10000000149011612
-          Topic: /drone0/planning/corridor_path
-          Unreliable: false
-          Value: true
-      Enabled: false
-      Name: debug
     - Class: rviz/Image
       Enabled: true
       Image Topic: /iris_0/realsense/depth_camera/depth/image_raw
@@ -1129,7 +1004,7 @@ Visualization Manager:
       Value: true
     - Class: rviz/Image
       Enabled: true
-      Image Topic: /drone0/yolo_detector/detected_image
+      Image Topic: /yolo_detector/detected_image
       Max Value: 1
       Median window: 5
       Min Value: 0
@@ -1138,6 +1013,14 @@ Visualization Manager:
       Queue Size: 2
       Transport Hint: raw
       Unreliable: false
+      Value: true
+    - Class: rviz/MarkerArray
+      Enabled: true
+      Marker Topic: /yolo_3d_bboxes
+      Name: BoundBox
+      Namespaces:
+        box3D: true
+      Queue Size: 100
       Value: true
   Enabled: true
   Global Options:
@@ -1167,7 +1050,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 17.309873580932617
+      Distance: 28.786361694335938
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -1175,17 +1058,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: -4.025971412658691
-        Y: 2.7704970836639404
+        X: -1.0465515851974487
+        Y: 0.18246665596961975
         Z: 1.53081476688385
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.409796953201294
+      Pitch: 1.509796380996704
       Target Frame: world
-      Yaw: 3.1520986557006836
+      Yaw: 3.232102394104004
     Saved: ~
 Window Geometry:
   Displays:

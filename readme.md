@@ -18,17 +18,27 @@ roslaunch px4 tracker.launch
 ### 2. 启动行人控制脚本 🧑‍🦯
 接下来，启动行人控制脚本来模拟行人运动：
 ```bash
-rosrun gazebo_ex keyboard.py
+rosrun gazebo_extra_plugins keyboard_actor.py 
 ```
 这将通过键盘控制行人在 **Gazebo** 中的移动，支持前进、后退、左转、右转等控制。
 
-### 3. 启动检测模块 🧐
+### 3. 启动检测模块
 最后，启动目标检测模块，进行行人检测与无人机追踪：
 ```bash
-roslaunch d2p d2p
-roslaunch d2p start
+roslaunch d2p d2p.launch
 ```
 检测模块会识别行人并为无人机提供追踪目标的位置信息。
+
+### 4. 启动追踪模块
+```bash
+roslaunch planning simulation1.launch 
+```
+
+### 4. 启动控制模块
+```bash
+roslaunch px4ctrl singl_run.launch 
+```
+
 
 ## 项目结构 🏗️
 

@@ -5,6 +5,7 @@
 #include <message_filters/sync_policies/exact_time.h>
 #include <message_filters/time_synchronizer.h>
 #include <nav_msgs/Odometry.h>
+#include <geometry_msgs/Point.h>
 #include <object_detection_msgs/BoundingBoxes.h>
 
 ros::Publisher target_odom_pub_;
@@ -116,11 +117,11 @@ void predict_state_callback(const ros::TimerEvent& event) {
   target_odom_pub_.publish(target_odom);
 }
 
-void yolo_cb(const nav_msgs::OdometryConstPtr &yolo_detect) {
+void yolo_cb(const geometry_msgs::PointConstPtr &yolo_detect) {
   Eigen::Vector3d p;
-  p(0) = yolo_detect->pose.pose.position.x;
-  p(1) = yolo_detect->pose.pose.position.y;
-  p(2) = yolo_detect->pose.pose.position.z;
+  p(0) = yolo_detect->x;
+  p(1) = yolo_detect->y;
+  p(2) = yolo_detect->z;
 
   // 更新目标 odom
   double update_dt = (ros::Time::now() - last_update_stamp_).toSec();
@@ -144,13 +145,13 @@ int main(int argc, char** argv) {
   ros::Time::init();
   last_update_stamp_ = ros::Time::now() - ros::Duration(10.0);
 
-  target_odom_pub_ = nh.advertise<nav_msgs::Odometry>("target_odom", 1);
+  target_odom_pub_ = nh.advertise<nav_msgs::Odometry>("odom", 10);
 
   int ekf_rate = 20;
   nh.getParam("ekf_rate", ekf_rate);
   ekfPtr_ = std::make_shared<Ekf>(1.0 / ekf_rate);
 
-  ros::Subscriber single_odom_sub = nh.subscribe("yolo", 100, &yolo_cb, ros::TransportHints().tcpNoDelay());
+  ros::Subscriber single_pose_sub = nh.subscribe("yolo", 100, &yolo_cb, ros::TransportHints().tcpNoDelay());
   ros::Timer ekf_predict_timer_ = nh.createTimer(ros::Duration(1.0 / ekf_rate), &predict_state_callback);
 
   ros::spin();

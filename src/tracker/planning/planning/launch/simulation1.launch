@@ -25,19 +25,13 @@
       <param name="robot_scale" value="1.0" />
     </node>
 
-    <node pkg="target_ekf" type="yolo_detector_node.py" name="detect_node" output="screen">
-      <remap from="/uav_color" to="$(arg camera_color_topic)" />
-      <remap from="/uav_depth" to="$(arg camera_depth_topic)" />
-      <remap from="/uav_odom" to="$(arg odom_topic)" />
-      <remap from="/modified_depth_image" to="$(arg modified_depth)" />
-    </node>
 
     <node pkg="target_ekf" name="target_ekf_node" type="target_ekf_node" output="screen">
       <rosparam command="load" file="$(find target_ekf)/config/D435_sim.yaml" />
       <!-- <param name="ekf_rate" value="20"/> -->
       <param name="pitch_thr" value="37" />
-      <remap from="~yolo" to="/yolo_detect" />
-      <remap from="~target_odom" to="$(arg target_odom)" />
+      <remap from="~yolo" to="/target_3d_position" />
+      <remap from="~odom" to="/target_ekf_odom" />
     </node>
 
     <include file="$(find planning)/launch/planning.launch">

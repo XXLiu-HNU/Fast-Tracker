@@ -5,6 +5,6 @@
         <!-- 例如，如果 d2p_node 需要特定的参数，可以在此添加 -->
         <!-- <param name="param_name" value="param_value" /> -->
     </node>
-
-    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find d2p)/rviz/detector.rviz"/>
+    <node name="detect_node" pkg="d2p" type="yolo_detector_node.py" output="screen">
+    </node>
 </launch>
