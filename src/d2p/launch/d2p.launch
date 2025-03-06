@@ -7,4 +7,5 @@
     </node>
     <node name="detect_node" pkg="d2p" type="yolo_detector_node.py" output="screen">
     </node>
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find d2p)/rviz/detector.rviz"/>
 </launch>

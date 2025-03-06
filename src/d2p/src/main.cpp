@@ -24,7 +24,7 @@ double depthMaxValue_ = 5.0;
 bool odom_sub = false;
 
 // std::vector<double> colorIntrinsics = {604.404296875, 604.404296875, 325.03704833984375, 245.77059936523438};
-std::vector<double> colorIntrinsics = { 554.254691191187, 554.254691191187, 320.5, 240.5};  // for xtdeone
+std::vector<double> colorIntrinsics = {554.254691191187, 554.254691191187, 320.5, 240.5}; // for xtdeone
 
 double fxC_, fyC_, cxC_, cyC_;
 
@@ -66,7 +66,6 @@ void calculateMAD(std::vector<double> &depthValues, double &depthMedian, double 
     std::sort(deviations.begin(), deviations.end());
     MAD = deviations[int(deviations.size() / 2)];
 }
-
 
 void transformBBox(const Eigen::Vector3d &center, const Eigen::Vector3d &size, const Eigen::Vector3d &position, const Eigen::Matrix3d &orientation,
                    Eigen::Vector3d &newCenter, Eigen::Vector3d &newSize)
@@ -160,97 +159,115 @@ void getCameraPose(const nav_msgs::OdometryConstPtr &odom, Eigen::Matrix4d &camP
     camPoseColorMatrix = map2body * body2CamColor_;
 }
 
-void publish3dBox(const std::vector<box3D>& boxes, const ros::Publisher& publisher, double r, double g, double b) {
-        // visualization using bounding boxes 
-        visualization_msgs::Marker line;
-        visualization_msgs::MarkerArray lines;
-        line.header.frame_id = "world";
-        line.type = visualization_msgs::Marker::LINE_LIST;
-        line.action = visualization_msgs::Marker::ADD;
-        line.ns = "box3D";  
-        line.scale.x = 0.06;
-        line.color.r = r;
-        line.color.g = g;
-        line.color.b = b;
-        line.color.a = 1.0;
-        line.lifetime = ros::Duration(0.1);
-        
-        for(size_t i = 0; i < boxes.size(); i++){
-            // visualization msgs
-            line.text = " Vx " + std::to_string(boxes[i].Vx) + " Vy " + std::to_string(boxes[i].Vy);
-            double x = boxes[i].x; 
-            double y = boxes[i].y; 
-            double z = (boxes[i].z+boxes[i].z_width/2)/2; 
+void publish3dBox(const std::vector<box3D> &boxes, const ros::Publisher &publisher, double r, double g, double b)
+{
+    // visualization using bounding boxes
+    visualization_msgs::Marker line;
+    visualization_msgs::MarkerArray lines;
+    line.header.frame_id = "world";
+    line.type = visualization_msgs::Marker::LINE_LIST;
+    line.action = visualization_msgs::Marker::ADD;
+    line.ns = "box3D";
+    line.scale.x = 0.06;
+    line.color.r = r;
+    line.color.g = g;
+    line.color.b = b;
+    line.color.a = 1.0;
+    line.lifetime = ros::Duration(0.1);
 
-            // double x_width = std::max(boxes[i].x_width,boxes[i].y_width);
-            // double y_width = std::max(boxes[i].x_width,boxes[i].y_width);
-            double x_width = boxes[i].x_width;
-            double y_width = boxes[i].y_width;
-            double z_width = 2*z;
+    for (size_t i = 0; i < boxes.size(); i++)
+    {
+        // visualization msgs
+        line.text = " Vx " + std::to_string(boxes[i].Vx) + " Vy " + std::to_string(boxes[i].Vy);
+        double x = boxes[i].x;
+        double y = boxes[i].y;
+        double z = (boxes[i].z + boxes[i].z_width / 2) / 2;
 
-            // double z = 
-            
-            std::vector<geometry_msgs::Point> verts;
-            geometry_msgs::Point p;
-            // vertice 0
-            p.x = x-x_width / 2.; p.y = y-y_width / 2.; p.z = z-z_width / 2.;
-            verts.push_back(p);
+        // double x_width = std::max(boxes[i].x_width,boxes[i].y_width);
+        // double y_width = std::max(boxes[i].x_width,boxes[i].y_width);
+        double x_width = boxes[i].x_width;
+        double y_width = boxes[i].y_width;
+        double z_width = 2 * z;
 
-            // vertice 1
-            p.x = x-x_width / 2.; p.y = y+y_width / 2.; p.z = z-z_width / 2.;
-            verts.push_back(p);
+        // double z =
 
-            // vertice 2
-            p.x = x+x_width / 2.; p.y = y+y_width / 2.; p.z = z-z_width / 2.;
-            verts.push_back(p);
+        std::vector<geometry_msgs::Point> verts;
+        geometry_msgs::Point p;
+        // vertice 0
+        p.x = x - x_width / 2.;
+        p.y = y - y_width / 2.;
+        p.z = z - z_width / 2.;
+        verts.push_back(p);
 
-            // vertice 3
-            p.x = x+x_width / 2.; p.y = y-y_width / 2.; p.z = z-z_width / 2.;
-            verts.push_back(p);
+        // vertice 1
+        p.x = x - x_width / 2.;
+        p.y = y + y_width / 2.;
+        p.z = z - z_width / 2.;
+        verts.push_back(p);
 
-            // vertice 4
-            p.x = x-x_width / 2.; p.y = y-y_width / 2.; p.z = z+z_width / 2.;
-            verts.push_back(p);
+        // vertice 2
+        p.x = x + x_width / 2.;
+        p.y = y + y_width / 2.;
+        p.z = z - z_width / 2.;
+        verts.push_back(p);
 
-            // vertice 5
-            p.x = x-x_width / 2.; p.y = y+y_width / 2.; p.z = z+z_width / 2.;
-            verts.push_back(p);
+        // vertice 3
+        p.x = x + x_width / 2.;
+        p.y = y - y_width / 2.;
+        p.z = z - z_width / 2.;
+        verts.push_back(p);
 
-            // vertice 6
-            p.x = x+x_width / 2.; p.y = y+y_width / 2.; p.z = z+z_width / 2.;
-            verts.push_back(p);
+        // vertice 4
+        p.x = x - x_width / 2.;
+        p.y = y - y_width / 2.;
+        p.z = z + z_width / 2.;
+        verts.push_back(p);
 
-            // vertice 7
-            p.x = x+x_width / 2.; p.y = y-y_width / 2.; p.z = z+z_width / 2.;
-            verts.push_back(p);
-            
-            int vert_idx[12][2] = {
-                {0,1},
-                {1,2},
-                {2,3},
-                {0,3},
-                {0,4},
-                {1,5},
-                {3,7},
-                {2,6},
-                {4,5},
-                {5,6},
-                {4,7},
-                {6,7}
-            };
-            
-            for (size_t i=0;i<12;i++){
-                line.points.push_back(verts[vert_idx[i][0]]);
-                line.points.push_back(verts[vert_idx[i][1]]);
-            }
-            
-            lines.markers.push_back(line);
-            
-            line.id++;
+        // vertice 5
+        p.x = x - x_width / 2.;
+        p.y = y + y_width / 2.;
+        p.z = z + z_width / 2.;
+        verts.push_back(p);
+
+        // vertice 6
+        p.x = x + x_width / 2.;
+        p.y = y + y_width / 2.;
+        p.z = z + z_width / 2.;
+        verts.push_back(p);
+
+        // vertice 7
+        p.x = x + x_width / 2.;
+        p.y = y - y_width / 2.;
+        p.z = z + z_width / 2.;
+        verts.push_back(p);
+
+        int vert_idx[12][2] = {
+            {0, 1},
+            {1, 2},
+            {2, 3},
+            {0, 3},
+            {0, 4},
+            {1, 5},
+            {3, 7},
+            {2, 6},
+            {4, 5},
+            {5, 6},
+            {4, 7},
+            {6, 7}};
+
+        for (size_t i = 0; i < 12; i++)
+        {
+            line.points.push_back(verts[vert_idx[i][0]]);
+            line.points.push_back(verts[vert_idx[i][1]]);
         }
-        // publish
-        publisher.publish(lines);
+
+        lines.markers.push_back(line);
+
+        line.id++;
     }
+    // publish
+    publisher.publish(lines);
+}
 
 void alignedDepthCB(const sensor_msgs::ImageConstPtr &img)
 {
@@ -292,7 +309,7 @@ void OdomCB(const nav_msgs::OdometryConstPtr &odom)
 
 void detection_callback(const vision_msgs::Detection2DArrayConstPtr &detections)
 {
-    if (alignedDepthImage_.empty() || ! odom_sub)
+    if (alignedDepthImage_.empty() || !odom_sub)
     {
         ROS_WARN("No Image or Odom!");
         return;
@@ -443,7 +460,7 @@ void detection_callback(const vision_msgs::Detection2DArrayConstPtr &detections)
         geometry_msgs::Point target_position;
         target_position.x = bbox3D.x;
         target_position.y = bbox3D.y;
-        target_position.z = 1.0;  // person dont move in z-aixs
+        target_position.z = 1.0; // person dont move in z-aixs
 
         bbox_pub.publish(target_position);
     }
